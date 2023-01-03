@@ -1,10 +1,11 @@
 pub const ExtismContext = opaque {};
+pub const ExtismFunction = opaque {};
 pub const ExtismPlugin = i32;
 pub const ExtismSize = u64;
 pub extern fn extism_context_new() *ExtismContext;
 pub extern fn extism_context_free(ctx: *ExtismContext) void;
-pub extern fn extism_plugin_new(ctx: *ExtismContext, wasm: [*c]const u8, wasm_size: ExtismSize, with_wasi: bool) ExtismPlugin;
-pub extern fn extism_plugin_update(ctx: *ExtismContext, index: ExtismPlugin, wasm: [*c]const u8, wasm_size: ExtismSize, with_wasi: bool) bool;
+pub extern fn extism_plugin_new(ctx: *ExtismContext, wasm: [*c]const u8, wasm_size: ExtismSize, functions: [*c]*ExtismFunction, n_functions: ExtismSize, with_wasi: bool) ExtismPlugin;
+pub extern fn extism_plugin_update(ctx: *ExtismContext, index: ExtismPlugin, wasm: [*c]const u8, wasm_size: ExtismSize, functions: [*c]*ExtismFunction, n_functions: ExtismSize, with_wasi: bool) bool;
 pub extern fn extism_plugin_free(ctx: *ExtismContext, plugin: ExtismPlugin) void;
 pub extern fn extism_context_reset(ctx: *ExtismContext) void;
 pub extern fn extism_plugin_config(ctx: *ExtismContext, plugin: ExtismPlugin, json: [*c]const u8, json_size: ExtismSize) bool;
